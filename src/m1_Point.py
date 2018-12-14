@@ -61,14 +61,18 @@ class Point(object):
         return Point(self.x, self.y)
 
     def move_by(self, dx, dy):
+        p1 = self.clone()
         self.x = self.x + dx
         self.y = self.y + dy
         self.moves += 1
+        self.distance += self.get_distance_from(p1)
 
     def move_to(self, x, y):
+        p1 = self.clone()
         self.x = x
         self.y = y
         self.moves += 1
+        self.distance +=self.get_distance_from(p1)
 
     def get_number_of_moves_made(self):
         return self.moves
@@ -85,10 +89,8 @@ class Point(object):
         distance = math.sqrt(dx**2+dy**2)
         return distance
 
-   def get_distance_traveled(self):
-       newP = Point(self.x, self.y)
-       self.distance += self.get_distance_from(newP)
-       return self.distance
+    def get_distance_traveled(self):
+        return self.distance
 
     def closer_to(self, p1, p2):
         distance1 = Point.get_distance_from(self, p1)
@@ -99,10 +101,9 @@ class Point(object):
             return p1
 
     def halfway_to(self, p2):
-        dx = abs(self.x - p2.x)
-        dy = abs(self.y - p2.y)
-        self.x = self.x + dx
-        self.y = self.y +dy
+        dx = (self.x + p2.x)/2
+        dy = (self.y + p2.y)/2
+        return Point(dx, dy)
 
 
 
@@ -421,7 +422,7 @@ def run_test_move_by():
         print('** value; in fact, it returned:', check_has_no_return)
 
     # -------------------------------------------------------------------------
-    # TODO: 7.  Follow the same instructions as in _TODO_ 3 above,
+    # Done: 7.  Follow the same instructions as in _TODO_ 3 above,
     #           but for the  move_by  method specified above.
     # -------------------------------------------------------------------------
 
@@ -559,7 +560,7 @@ def run_test_get_distance_from():
         print('Actual   p2 to p4:', p2.get_distance_from(p4))
     """
     # -------------------------------------------------------------------------
-    # TODO: 9.  Follow the same instructions as in _TODO_ 3 above,
+    # Done: 9.  Follow the same instructions as in _TODO_ 3 above,
     #    but for the  get_distance_from  method specified above.
     # -------------------------------------------------------------------------
     print()
@@ -653,7 +654,7 @@ def run_test_get_distance_from_start():
         print('Actually is:', p2.get_distance_from_start())
     """
     # -------------------------------------------------------------------------
-    # TODO: 10.  Follow the same instructions as in _TODO_ 3 above,
+    # Done: 10.  Follow the same instructions as in _TODO_ 3 above,
     #    but for the  get_distance_from_START  method specified above.
     # -------------------------------------------------------------------------
     print()
@@ -736,7 +737,7 @@ def run_test_get_distance_traveled():
         print('Actual:', p4.get_distance_traveled())
     """
     # -------------------------------------------------------------------------
-    # TODO: 11.  Follow the same instructions as in _TODO_ 3 above,
+    # Done: 11.  Follow the same instructions as in _TODO_ 3 above,
     #    but for the  get_distance_traveled  method specified above.
     # -------------------------------------------------------------------------
     print()
@@ -821,7 +822,7 @@ def run_test_closer_to():
         print('Actual:  ', p1.closer_to(p4, p5) is p5)
     """
     # -------------------------------------------------------------------------
-    # TODO: 12.  Follow the same instructions as in TO-DO 3 above,
+    # Done: 12.  Follow the same instructions as in TO-DO 3 above,
     #    but for the  closer_to  method specified above.
     # -------------------------------------------------------------------------
     print()
@@ -904,7 +905,7 @@ def run_test_halfway_to():
 
     """
     # -------------------------------------------------------------------------
-    # TODO: 13.  Follow the same instructions as in TO-DO 3 above,
+    # Done: 13.  Follow the same instructions as in TO-DO 3 above,
     #    but for the  halfway_to  method specified above.
     # -------------------------------------------------------------------------
     print()
